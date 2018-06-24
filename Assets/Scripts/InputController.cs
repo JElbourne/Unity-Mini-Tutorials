@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour {
 
-	// Update is called once per frame
-	void Update () {
+    public GameObject target;
+
+    MoveTrait m_MoveTrait;
+
+    private void Start()
+    {
+        m_MoveTrait = target.GetComponent<MoveTrait>();
+    }
+
+    void Update () {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
-        if (hor != 0 || ver != 0)
-            Debug.Log(hor + " " + ver);
 
-        if (Input.GetButtonDown("Jump"))
-            Debug.Log("Jumping");
-
+        if(m_MoveTrait && (hor != 0 || ver != 0))
+        {
+            m_MoveTrait.Move(hor, ver, 10);
+        }
     }
 }
